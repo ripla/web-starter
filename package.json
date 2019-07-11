@@ -1,0 +1,44 @@
+{
+  "name": "pwa-starter-kit",
+  "version": "1.0.0",
+  "contributors": [
+    "The Polymer Authors",
+    "Risto Yrjänä"
+  ],
+  "license": "BSD-3-Clause",
+  "repository": "ripla/web-starter",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "build": "rm -rf dist && webpack --config webpack.config.js",
+    "serve": "serve -l 3000 dist",
+    "test": ""
+  },
+  "dependencies": {
+    "@vaadin/vaadin-core": "^14.0.0-rc4",
+    "@polymer/polymer": "^3.1.0",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "lit-element": "^2.0.0",
+    "pwa-helpers": "^0.9.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "acorn": "^6.2.0",
+    "babel-loader": "^8.0.4",
+    "copy-webpack-plugin": "^4.6.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-rename": "^1.3.0",
+    "gulp-replace": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "serve": "^11.1.0",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.4",
+    "workbox-webpack-plugin": "^3.6.3"
+  }
+}
