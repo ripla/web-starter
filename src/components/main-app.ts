@@ -3,6 +3,11 @@ import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js'
 
 import '@vaadin/vaadin-button';
 import '@vaadin/vaadin-notification/vaadin-notification'
+import { Router } from '@vaadin/router';
+
+import './app-view1'
+import './app-view2'
+import './app-view3'
 
 class MainApp extends LitElement {
 
@@ -23,23 +28,23 @@ class MainApp extends LitElement {
 
   render() {
     return html`
+    <a href="/">Main</a>
+    <a href="/view1">View 1</a>
+    <a href="/view2">View 2</a>
+    <a href="/view3">View 3</a>
+
     <h1>${this.appTitle}</h1>
-    <div>${this.appMethod()}</div>
+
+
     <vaadin-button @click=${this.showMessage}>Click me!</vaadin-button>
     <vaadin-notification duration="4000">
       <template>
         <span>Hello!</span>
       </template>
     </vaadin-notification>
+
+    <div id="container"></div>
     `;
-  }
-
-  appMethod(): string {
-    const first: string = "This ";
-    const second: string = "is ";
-    const third: string = "TypeScript!"
-
-    return first + second + third;
   }
  
   showMessage(): void {
@@ -57,7 +62,12 @@ class MainApp extends LitElement {
   }
 
   firstUpdated() {
-
+    const router = new Router(this.shadowRoot!.getElementById('container'));
+    router.setRoutes([
+      {path: '/view1', component: 'app-view1'},
+      {path: '/view2', component: 'app-view2'},
+      {path: '/view3', component: 'app-view3'},
+    ]);
   }
 }
 
