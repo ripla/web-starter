@@ -1,18 +1,24 @@
-import { LitElement, html, css, property } from 'lit-element';
+import { LitElement, html, css, property, PropertyValues, customElement } from 'lit-element';
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
+import { connect } from 'pwa-helpers/connect-mixin.js';
 
 import '@vaadin/vaadin-button';
 import '@vaadin/vaadin-notification/vaadin-notification'
 import { Router } from '@vaadin/router';
 
+import { store, RootState } from '../store';
+import { openApp } from '../actions/app'
+
+import './main-view'
 import './app-view1'
 import './app-view2'
 import './app-view3'
 
-class MainApp extends LitElement {
+@customElement('main-app')
+class MainApp extends connect(store)(LitElement) {
 
-  @property({ type: String })
-  public appTitle: String = "Title";
+  @property({type: Number})
+  private openCount: number = 0;
 
   static get styles() {
     return [
@@ -33,25 +39,10 @@ class MainApp extends LitElement {
     <a href="/view2">View 2</a>
     <a href="/view3">View 3</a>
 
-    <h1>${this.appTitle}</h1>
-
-
-    <vaadin-button @click=${this.showMessage}>Click me!</vaadin-button>
-    <vaadin-notification duration="4000">
-      <template>
-        <span>Hello!</span>
-      </template>
-    </vaadin-notification>
+    <div>App rendered ${this.openCount} times</div>
 
     <div id="container"></div>
     `;
-  }
- 
-  showMessage(): void {
-    const notification: NotificationElement | null = this.shadowRoot!.querySelector('vaadin-notification');
-    if(notification) {
-      notification.open();
-    }
   }
 
   constructor() {
@@ -64,11 +55,16 @@ class MainApp extends LitElement {
   firstUpdated() {
     const router = new Router(this.shadowRoot!.getElementById('container'));
     router.setRoutes([
+      {path: '/', component: 'main-view'},
       {path: '/view1', component: 'app-view1'},
       {path: '/view2', component: 'app-view2'},
       {path: '/view3', component: 'app-view3'},
     ]);
+
+    store.dispatch(openApp());
+  }
+
+  stateChanged(state: RootState) {
+    this.openCount = state.app!.viewCount;
   }
 }
-
-window.customElements.define('main-app', MainApp);

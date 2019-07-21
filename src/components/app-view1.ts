@@ -1,5 +1,6 @@
-import { LitElement, html, css, property } from 'lit-element';
+import { LitElement, html, css, property, customElement } from 'lit-element';
 
+@customElement('app-view1')
 class AppView1 extends LitElement {
 
     @property({type: Number})
@@ -7,8 +8,7 @@ class AppView1 extends LitElement {
 
     render() {
         return html`
-            <div>View 1</div>
-            <div>Rendered ${this.renderCount} times</div>
+            <div>View 1 rendered ${this.renderCount} times</div>
             `
     }
 
@@ -16,5 +16,3 @@ class AppView1 extends LitElement {
         this.renderCount = this.renderCount + 1;
     }
 }
-
-customElements.define('app-view1', AppView1);
