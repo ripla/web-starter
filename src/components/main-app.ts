@@ -39,7 +39,7 @@ class MainApp extends connect(store)(LitElement) {
     <a href="/view2">View 2</a>
     <a href="/view3">View 3</a>
 
-    <div>App rendered ${this.openCount} times</div>
+    <div>App opened ${this.openCount} times</div>
 
     <div id="container"></div>
     `;
